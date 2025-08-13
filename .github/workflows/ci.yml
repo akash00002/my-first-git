@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
       - name: Run Tests
         run: python3 tests/test_math.py
   deploy:
-    needs: build-and-test
+    needs: build_and_test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
