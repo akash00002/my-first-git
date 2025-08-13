@@ -11,13 +11,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Run Hello Script (Bash)
-        run: bash scripts/hello.sh
-
-      - name: Run Hello Script (Python)
-        run: python3 scripts/hello.py
-      
       - name: Run Tests
         run: python3 tests/test_math.py
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy application
+        run: bash deploy.sh
