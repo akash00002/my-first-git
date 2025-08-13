@@ -1,7 +1,7 @@
 import sys
 
 def test_addition():
-    asserts 2+2 == 4, "Math is borken!"
+    assert 2+2 == 4, "Math is borken!"
 
 try:
     test_addition()
