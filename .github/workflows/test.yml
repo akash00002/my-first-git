@@ -1,27 +1,15 @@
-name: Test Secret
+# .github/workflows/ci.yml
+name: Main CI
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  test-secret:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check secret exists
-        run: |
-          if [ -z "$MY_SECRET_KEY" ]; then
-            echo "❌ Secret is missing"
-            exit 1
-          else
-            echo "✅ Secret is present and not empty"
-          fi
-        env:
-          MY_SECRET_KEY: ${{ secrets.MY_SECRET_KEY }}
-
-      - name: Use secret internally
-        run: |
-          echo "$MY_SECRET_KEY" > /tmp/secret.txt
-          echo "Secret saved to a file (not printed)"
-        env:
-          MY_SECRET_KEY: ${{ secrets.MY_SECRET_KEY }}
+  use-reusable-ci:
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      python_version: "3.10"
 

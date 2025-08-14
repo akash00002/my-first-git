@@ -1,0 +1,24 @@
+# .github/workflows/reusable-ci.yml
+name: Reusable CI Workflow
+
+on:
+  workflow_call:  # This means other workflows can call it
+    inputs:
+      python_version:
+        required: true
+        type: string
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python_version }}
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest
+
